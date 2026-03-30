@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>错题详情</title>
+<link href="https://fonts.googleapis.com/css2?family=ABeeZee&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --n900: #1f2229;
+  --n700: #656a73;
+  --n500: #999da6;
+  --n200: #e4e5e7;
+  --n100: #f3f4f6;
+  --white: #ffffff;
+  --blue: #38afff;
+  --orange: #ff6509;
+  --red: rgba(232,43,10,0.87);
+  --green: #52c41a;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { width: 100%; min-height: 100vh; background: var(--n100); font-family: 'Noto Sans SC', sans-serif; color: var(--n900); }
+.num { font-family: 'ABeeZee', sans-serif; }
+.tappable { cursor: pointer; transition: opacity .15s; }
+.tappable:active { opacity: .65; }
+
+.phone { max-width: 375px; min-height: 100vh; margin: 0 auto; background: var(--white); }
+
+/* Header */
+.header { background: var(--white); padding: 12px 16px; display: flex; align-items: center; border-bottom: 1px solid var(--n200); position: relative; }
+.back-btn { display: flex; align-items: center; justify-content: center; background: none; border: none; padding: 0; cursor: pointer; position: relative; z-index: 1; }
+.header-title { font-size: 17px; font-weight: 500; color: var(--n900); position: absolute; left: 50%; transform: translateX(-50%); }
+
+/* Navigation dots */
+.nav-dots { padding: 16px; display: flex; align-items: center; gap: 8px; overflow-x: auto; scrollbar-width: none; }
+.nav-dots::-webkit-scrollbar { display: none; }
+.dot { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 500; cursor: pointer; flex-shrink: 0; }
+.dot.active { background: var(--orange); color: white; }
+.dot:not(.active) { background: var(--n100); color: var(--n700); }
+
+/* Content */
+.content { padding: 0 16px 32px; }
+
+/* Knowledge tag */
+.knowledge-tag { display: inline-block; background: #fff8f5; border: 1px solid rgba(255,101,9,0.2); border-radius: 20px; padding: 4px 12px; font-size: 12px; color: var(--orange); margin-bottom: 16px; }
+
+/* Question card */
+.question-card { background: var(--white); padding: 20px 0; margin-bottom: 16px; }
+.question-label { font-size: 13px; color: var(--n700); margin-bottom: 8px; }
+.question-text { font-size: 15px; color: var(--n900); line-height: 24px; margin-bottom: 16px; }
+
+/* Answer section */
+.answer-section { margin-bottom: 16px; }
+.answer-section:last-child { margin-bottom: 0; }
+.answer-title { font-size: 13px; font-weight: 500; margin-bottom: 8px; }
+.answer-title.wrong { color: var(--red); }
+.answer-title.correct { color: var(--green); }
+.answer-title.analysis { color: var(--n700); }
+.answer-content { font-size: 14px; color: var(--n900); line-height: 22px; background: var(--n100); border-radius: 8px; padding: 12px; }
+.answer-content.analysis { background: #f8f9fa; color: var(--n700); }
+
+/* Home indicator */
+.home-indicator { height: 34px; display: flex; align-items: flex-end; justify-content: center; padding-bottom: 8px; }
+.home-bar { width: 134px; height: 5px; background: black; border-radius: 100px; }
+</style>
+</head>
+<body>
+
+<div class="phone">
+  <!-- Header -->
+  <div class="header">
+    <button class="back-btn tappable" onclick="window.location.href='xuqing-weekly-v2_副本.html#page-outcome'">
+      <svg width="10" height="17" viewBox="0 0 10 17" fill="none">
+        <path d="M8.5 1.5L1.5 8.5l7 7" stroke="var(--n900)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+    <div class="header-title">错题详情</div>
+  </div>
+
+  <!-- Navigation dots -->
+  <div class="nav-dots">
+    <div class="dot active">1</div>
+    <div class="dot" onclick="switchQuestion(2)">2</div>
+    <div class="dot" onclick="switchQuestion(3)">3</div>
+    <div class="dot" onclick="switchQuestion(4)">4</div>
+    <div class="dot" onclick="switchQuestion(5)">5</div>
+    <div class="dot" onclick="switchQuestion(6)">6</div>
+    <div class="dot" onclick="switchQuestion(7)">7</div>
+    <div class="dot" onclick="switchQuestion(8)">8</div>
+    <div class="dot" onclick="switchQuestion(9)">9</div>
+  </div>
+
+  <!-- Content -->
+  <div class="content">
+    <!-- Knowledge tag -->
+    <div class="knowledge-tag">几何图形</div>
+
+    <!-- Question -->
+    <div class="question-card">
+      <div class="question-label">题目</div>
+      <div class="question-text">一个长方形的长是 8cm，宽是 5cm，它的周长是多少？</div>
+
+      <!-- My answer -->
+      <div class="answer-section">
+        <div class="answer-title wrong">我的答案</div>
+        <div class="answer-content">13cm</div>
+      </div>
+
+      <!-- Correct answer -->
+      <div class="answer-section">
+        <div class="answer-title correct">参考答案</div>
+        <div class="answer-content">26cm</div>
+      </div>
+
+      <!-- Analysis -->
+      <div class="answer-section">
+        <div class="answer-title analysis">解析</div>
+        <div class="answer-content analysis">混淆了周长和面积的计算公式。长方形的周长应该用公式：周长 = (长 + 宽) × 2 = (8 + 5) × 2 = 26cm</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="home-indicator"><div class="home-bar"></div></div>
+</div>
+
+<script>
+function switchQuestion(num) {
+  alert('切换到第 ' + num + ' 题');
+}
+</script>
+
+</body>
+</html>
