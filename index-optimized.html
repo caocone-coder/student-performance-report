@@ -2032,7 +2032,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 
       <!-- AI 洞察 -->
       <div style="background:#f7f7f9;border-radius:10px;padding:14px;">
-        <p style="font-size:13px;color:var(--n700);line-height:22px;">小丸子本周阅读量持续提升，<strong style="color:var(--n900);font-weight:500;">词汇积累</strong>稳步增长。单词测验正确率略有下降，建议配合课后复习工具巩固新词，推荐使用 <span onclick="showPage('page-tiantianjidanci')" style="color:var(--blue);font-weight:500;background:rgba(56,175,255,.1);border:1px solid rgba(56,175,255,.25);border-radius:5px;padding:1px 7px;cursor:pointer;white-space:nowrap;">天天记单词</span> 尤其关注本周新增词汇的拼写练习。</p>
+        <p style="font-size:13px;color:var(--n700);line-height:22px;">小丸子本周阅读量持续提升，<strong style="color:var(--n900);font-weight:500;">词汇积累</strong>稳步增长。单词测验正确率略有下降，建议配合课后复习工具巩固新词，推荐使用 <span onclick="showPage('page-tiantianjidanci', 'page-outcome-reading')" style="color:var(--blue);font-weight:500;background:rgba(56,175,255,.1);border:1px solid rgba(56,175,255,.25);border-radius:5px;padding:1px 7px;cursor:pointer;white-space:nowrap;">天天记单词</span> 尤其关注本周新增词汇的拼写练习。</p>
       </div>
     </div>
 
@@ -2405,9 +2405,14 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
         </div>
 
         <!-- 行动召唤 -->
-        <button class="tappable" onclick="showPage('page-tiantianjidanci')" style="width:100%;background:linear-gradient(135deg,#ff8a3d 0%,#ff6509 100%);border:none;border-radius:10px;padding:16px 20px;font-size:15px;font-weight:600;color:white;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:0 6px 16px rgba(255,101,9,.3);transition:all .2s;">
+        <button class="tappable" onclick="showPage('page-tiantianjidanci', 'page-suggest')" style="width:100%;background:linear-gradient(135deg,#ff8a3d 0%,#ff6509 100%);border:none;border-radius:10px;padding:16px 20px;font-size:15px;font-weight:600;color:white;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:0 6px 16px rgba(255,101,9,.3);transition:all .2s;">
           <span>立即了解</span>
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 4l4 4-4 4" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+
+        <!-- 暂不考虑按钮 -->
+        <button class="tappable" onclick="showFeedbackSheet()" style="width:100%;background:transparent;border:none;padding:12px 20px;font-size:14px;font-weight:400;color:#999da6;display:flex;align-items:center;justify-content:center;gap:4px;margin-top:12px;cursor:pointer;">
+          <span>暂不考虑</span>
         </button>
 
         <!-- 卡片指示器 -->
@@ -2472,6 +2477,11 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 4l4 4-4 4" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </button>
 
+        <!-- 暂不考虑按钮 -->
+        <button class="tappable" onclick="showFeedbackSheet()" style="width:100%;background:transparent;border:none;padding:12px 20px;font-size:14px;font-weight:400;color:#999da6;display:flex;align-items:center;justify-content:center;gap:4px;margin-top:12px;cursor:pointer;">
+          <span>暂不考虑</span>
+        </button>
+
         <!-- 卡片指示器 -->
         <div style="display:flex;justify-content:center;align-items:center;gap:8px;margin-top:16px;">
           <div style="width:6px;height:6px;border-radius:50%;background:#ff6509;"></div>
@@ -2486,6 +2496,109 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   <div class="home-indicator"><div class="home-bar"></div></div>
 </div>
 </div><!-- end page-suggest -->
+
+
+<!-- ══════════════════════════════════════════════════════════════
+     FEEDBACK SHEET - 学习建议反馈浮层
+══════════════════════════════════════════════════════════════════ -->
+<div id="feedback-sheet" style="display:none;position:fixed;inset:0;z-index:10000;background:rgba(0,0,0,0.4);-webkit-tap-highlight-color:transparent;" onclick="hideFeedbackSheet()">
+  <div style="position:absolute;bottom:0;left:0;right:0;max-width:375px;margin:0 auto;background:#fff;border-radius:16px 16px 0 0;padding:20px 16px;padding-bottom:max(20px,env(safe-area-inset-bottom));" onclick="event.stopPropagation()">
+
+    <!-- 标题栏 -->
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
+      <div style="width:32px;"></div>
+      <div style="font-size:17px;font-weight:600;color:#1f2229;">建议反馈</div>
+      <button onclick="hideFeedbackSheet()" style="width:32px;height:32px;display:flex;align-items:center;justify-content:center;background:none;border:none;cursor:pointer;padding:0;">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+          <path d="M5 5l10 10M15 5l-10 10" stroke="#999da6" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </button>
+    </div>
+
+    <!-- 描述文案 -->
+    <div style="text-align:center;font-size:14px;color:#656a73;line-height:20px;margin-bottom:24px;">
+      暂时不考虑这个学习建议？<br>请选择您遇到的情况，我们给你更精准的学习建议～
+    </div>
+
+    <!-- 反馈选项列表 -->
+    <div style="max-height:400px;overflow-y:auto;margin-bottom:20px;">
+      <div class="feedback-option tappable" onclick="selectFeedback(this, 1)" style="padding:14px 16px;border:1.5px solid #e4e5e7;border-radius:10px;margin-bottom:10px;cursor:pointer;display:flex;align-items:center;justify-content:space-between;transition:all 0.2s;">
+        <span style="font-size:15px;color:#1f2229;">年级 / 教材版本不匹配</span>
+        <div class="radio-icon" style="width:20px;height:20px;border:2px solid #e4e5e7;border-radius:50%;display:flex;align-items:center;justify-content:center;">
+          <div style="width:10px;height:10px;border-radius:50%;background:#1098f3;display:none;"></div>
+        </div>
+      </div>
+
+      <div class="feedback-option tappable" onclick="selectFeedback(this, 2)" style="padding:14px 16px;border:1.5px solid #e4e5e7;border-radius:10px;margin-bottom:10px;cursor:pointer;display:flex;align-items:center;justify-content:space-between;transition:all 0.2s;">
+        <span style="font-size:15px;color:#1f2229;">不是孩子现在要重点学的科目</span>
+        <div class="radio-icon" style="width:20px;height:20px;border:2px solid #e4e5e7;border-radius:50%;display:flex;align-items:center;justify-content:center;">
+          <div style="width:10px;height:10px;border-radius:50%;background:#1098f3;display:none;"></div>
+        </div>
+      </div>
+
+      <div class="feedback-option tappable" onclick="selectFeedback(this, 3)" style="padding:14px 16px;border:1.5px solid #e4e5e7;border-radius:10px;margin-bottom:10px;cursor:pointer;display:flex;align-items:center;justify-content:space-between;transition:all 0.2s;">
+        <span style="font-size:15px;color:#1f2229;">内容太难，跟不上节奏</span>
+        <div class="radio-icon" style="width:20px;height:20px;border:2px solid #e4e5e7;border-radius:50%;display:flex;align-items:center;justify-content:center;">
+          <div style="width:10px;height:10px;border-radius:50%;background:#1098f3;display:none;"></div>
+        </div>
+      </div>
+
+      <div class="feedback-option tappable" onclick="selectFeedback(this, 4)" style="padding:14px 16px;border:1.5px solid #e4e5e7;border-radius:10px;margin-bottom:10px;cursor:pointer;display:flex;align-items:center;justify-content:space-between;transition:all 0.2s;">
+        <span style="font-size:15px;color:#1f2229;">内容太简单，没有提升价值</span>
+        <div class="radio-icon" style="width:20px;height:20px;border:2px solid #e4e5e7;border-radius:50%;display:flex;align-items:center;justify-content:center;">
+          <div style="width:10px;height:10px;border-radius:50%;background:#1098f3;display:none;"></div>
+        </div>
+      </div>
+
+      <div class="feedback-option tappable" onclick="selectFeedback(this, 5)" style="padding:14px 16px;border:1.5px solid #e4e5e7;border-radius:10px;margin-bottom:10px;cursor:pointer;display:flex;align-items:center;justify-content:space-between;transition:all 0.2s;">
+        <span style="font-size:15px;color:#1f2229;">孩子已有自己的学习计划或安排</span>
+        <div class="radio-icon" style="width:20px;height:20px;border:2px solid #e4e5e7;border-radius:50%;display:flex;align-items:center;justify-content:center;">
+          <div style="width:10px;height:10px;border-radius:50%;background:#1098f3;display:none;"></div>
+        </div>
+      </div>
+
+      <div class="feedback-option tappable" onclick="selectFeedback(this, 6)" style="padding:14px 16px;border:1.5px solid #e4e5e7;border-radius:10px;margin-bottom:10px;cursor:pointer;display:flex;align-items:center;justify-content:space-between;transition:all 0.2s;">
+        <span style="font-size:15px;color:#1f2229;">缺少孩子需要的功能（如错题整理）</span>
+        <div class="radio-icon" style="width:20px;height:20px;border:2px solid #e4e5e7;border-radius:50%;display:flex;align-items:center;justify-content:center;">
+          <div style="width:10px;height:10px;border-radius:50%;background:#1098f3;display:none;"></div>
+        </div>
+      </div>
+
+      <div class="feedback-option tappable" onclick="selectFeedback(this, 7)" style="padding:14px 16px;border:1.5px solid #e4e5e7;border-radius:10px;margin-bottom:10px;cursor:pointer;display:flex;align-items:center;justify-content:space-between;transition:all 0.2s;">
+        <span style="font-size:15px;color:#1f2229;">内容趣味性不够，没学习动力</span>
+        <div class="radio-icon" style="width:20px;height:20px;border:2px solid #e4e5e7;border-radius:50%;display:flex;align-items:center;justify-content:center;">
+          <div style="width:10px;height:10px;border-radius:50%;background:#1098f3;display:none;"></div>
+        </div>
+      </div>
+
+      <div class="feedback-option tappable" onclick="selectFeedback(this, 8)" style="padding:14px 16px;border:1.5px solid #e4e5e7;border-radius:10px;margin-bottom:10px;cursor:pointer;display:flex;align-items:center;justify-content:space-between;transition:all 0.2s;">
+        <span style="font-size:15px;color:#1f2229;">学习时间都排满了，没空余时间</span>
+        <div class="radio-icon" style="width:20px;height:20px;border:2px solid #e4e5e7;border-radius:50%;display:flex;align-items:center;justify-content:center;">
+          <div style="width:10px;height:10px;border-radius:50%;background:#1098f3;display:none;"></div>
+        </div>
+      </div>
+
+      <div class="feedback-option tappable" onclick="selectFeedback(this, 9)" style="padding:14px 16px;border:1.5px solid #e4e5e7;border-radius:10px;margin-bottom:10px;cursor:pointer;display:flex;align-items:center;justify-content:space-between;transition:all 0.2s;">
+        <span style="font-size:15px;color:#1f2229;">之前孩子有用过，但效果不是很好</span>
+        <div class="radio-icon" style="width:20px;height:20px;border:2px solid #e4e5e7;border-radius:50%;display:flex;align-items:center;justify-content:center;">
+          <div style="width:10px;height:10px;border-radius:50%;background:#1098f3;display:none;"></div>
+        </div>
+      </div>
+
+      <div class="feedback-option tappable" onclick="selectFeedback(this, 10)" style="padding:14px 16px;border:1.5px solid #e4e5e7;border-radius:10px;margin-bottom:10px;cursor:pointer;display:flex;align-items:center;justify-content:space-between;transition:all 0.2s;">
+        <span style="font-size:15px;color:#1f2229;">其他</span>
+        <div class="radio-icon" style="width:20px;height:20px;border:2px solid #e4e5e7;border-radius:50%;display:flex;align-items:center;justify-content:center;">
+          <div style="width:10px;height:10px;border-radius:50%;background:#1098f3;display:none;"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 提交按钮 -->
+    <button id="submit-feedback-btn" onclick="submitFeedback()" disabled style="width:100%;height:48px;border-radius:10px;border:none;background:#e4e5e7;font-size:15px;color:#999da6;font-weight:500;cursor:not-allowed;-webkit-tap-highlight-color:transparent;transition:all 0.2s;">
+      提交反馈
+    </button>
+  </div>
+</div>
 
 
 <!-- ══════════════════════════════════════════════════════════════
@@ -2585,6 +2698,12 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
         <span>立即了解</span>
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 4l4 4-4 4" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </button>
+
+      <!-- 暂不考虑按钮 -->
+      <button class="tappable" onclick="showFeedbackSheet()" style="width:100%;background:transparent;border:none;padding:12px 20px;font-size:14px;font-weight:400;color:#999da6;display:flex;align-items:center;justify-content:center;gap:4px;margin-top:12px;cursor:pointer;">
+        <span>暂不考虑</span>
+      </button>
+
       </div>
 
       <!-- 方案2：小学数学期中备考计划 -->
@@ -2641,6 +2760,12 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
         <span>参与计划</span>
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 4l4 4-4 4" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </button>
+
+      <!-- 暂不考虑按钮 -->
+      <button class="tappable" onclick="showFeedbackSheet()" style="width:100%;background:transparent;border:none;padding:12px 20px;font-size:14px;font-weight:400;color:#999da6;display:flex;align-items:center;justify-content:center;gap:4px;margin-top:12px;cursor:pointer;">
+        <span>暂不考虑</span>
+      </button>
+
       </div>
 
       </div>
@@ -2708,7 +2833,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 
     <!-- 导航栏 -->
     <div class="nav-bar">
-      <button class="nav-back tappable" onclick="document.getElementById('tiantianjidanci-overlay').remove();showPage('page-outcome-reading')">
+      <button class="nav-back tappable" onclick="document.getElementById('tiantianjidanci-overlay').remove();showPage(tiantianjidanciSourcePage || 'page-outcome-reading')">
         <svg width="10" height="17" viewBox="0 0 10 17" fill="none"><path d="M8.5 1.5L1.5 8.5l7 7" stroke="var(--n900)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </button>
       <div style="font-size:16px;font-weight:500;color:var(--n900);">天天记单词</div>
@@ -2993,6 +3118,8 @@ var dayData = [
   { date: '11月1日（周日）',  third: '—',        self: '—' }
 ];
 var selectedDay = -1;
+var tiantianjidanciSourcePage = null; // 记录进入天天记单词页面的来源页面
+
 function selectDay(idx) {
   var cols = document.querySelectorAll('#chart-bars .chart-col');
   var detail = document.getElementById('day-detail');
@@ -3065,8 +3192,13 @@ function showApp(icon, name) {
   showPage('page-apps');
 }
 
-function showPage(id) {
-  console.log('showPage called with id:', id);
+function showPage(id, sourcePage) {
+  console.log('showPage called with id:', id, 'sourcePage:', sourcePage);
+
+  // 如果是进入天天记单词页面，记录来源页面
+  if (id === 'page-tiantianjidanci' && sourcePage) {
+    tiantianjidanciSourcePage = sourcePage;
+  }
 
   // 隐藏所有现有页面
   document.querySelectorAll('.page').forEach(function(p) {
@@ -3205,6 +3337,10 @@ function showPage(id) {
                   <span>立即了解</span>
                   <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 4l4 4-4 4" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
                 </button>
+                <!-- 暂不考虑按钮 -->
+                <button class="tappable" onclick="showFeedbackSheet()" style="width:100%;background:transparent;border:none;padding:12px 20px;font-size:14px;font-weight:400;color:#999da6;display:flex;align-items:center;justify-content:center;gap:4px;margin-top:12px;cursor:pointer;">
+                  <span>暂不考虑</span>
+                </button>
 
                 <!-- 卡片指示器 -->
                 <div style="display:flex;justify-content:center;align-items:center;gap:8px;margin-top:16px;">
@@ -3263,6 +3399,10 @@ function showPage(id) {
                 <button onclick="document.getElementById('math-overlay').remove();showPage('page-plan-detail');" style="width:100%;background:linear-gradient(135deg,#ff8a3d 0%,#ff6509 100%);border:none;border-radius:10px;padding:16px 20px;font-size:15px;font-weight:600;color:white;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:0 6px 16px rgba(255,101,9,.3);cursor:pointer;">
                   <span>参与计划</span>
                   <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 4l4 4-4 4" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </button>
+                <!-- 暂不考虑按钮 -->
+                <button class="tappable" onclick="showFeedbackSheet()" style="width:100%;background:transparent;border:none;padding:12px 20px;font-size:14px;font-weight:400;color:#999da6;display:flex;align-items:center;justify-content:center;gap:4px;margin-top:12px;cursor:pointer;">
+                  <span>暂不考虑</span>
                 </button>
 
                 <!-- 卡片指示器 -->
@@ -3431,6 +3571,99 @@ function hideShareSheet() {
   if (sheet) {
     sheet.style.display = 'none';
   }
+}
+
+// ─── Feedback sheet ───────────────────────────────────────────────
+var selectedFeedbackId = null;
+
+function showFeedbackSheet() {
+  var sheet = document.getElementById('feedback-sheet');
+  // 将反馈浮层移到 body 最后，确保显示在最上层
+  document.body.appendChild(sheet);
+  sheet.style.display = 'block';
+  // 禁止背景页面滚动
+  document.body.style.overflow = 'hidden';
+
+  selectedFeedbackId = null;
+  // 重置所有选项
+  var options = document.querySelectorAll('.feedback-option');
+  options.forEach(function(option) {
+    option.style.border = '1.5px solid #e4e5e7';
+    option.style.background = '#fff';
+    var radio = option.querySelector('.radio-icon');
+    radio.style.borderColor = '#e4e5e7';
+    var dot = radio.querySelector('div');
+    dot.style.display = 'none';
+  });
+  // 禁用提交按钮
+  var submitBtn = document.getElementById('submit-feedback-btn');
+  submitBtn.disabled = true;
+  submitBtn.style.background = '#e4e5e7';
+  submitBtn.style.color = '#999da6';
+  submitBtn.style.cursor = 'not-allowed';
+}
+
+function hideFeedbackSheet() {
+  document.getElementById('feedback-sheet').style.display = 'none';
+  // 恢复背景页面滚动
+  document.body.style.overflow = '';
+}
+
+function selectFeedback(element, id) {
+  // 取消所有选项的选中状态
+  var options = document.querySelectorAll('.feedback-option');
+  options.forEach(function(option) {
+    option.style.border = '1.5px solid #e4e5e7';
+    option.style.background = '#fff';
+    var radio = option.querySelector('.radio-icon');
+    radio.style.borderColor = '#e4e5e7';
+    var dot = radio.querySelector('div');
+    dot.style.display = 'none';
+  });
+
+  // 选中当前选项
+  element.style.border = '1.5px solid #1098f3';
+  element.style.background = '#f0f8ff';
+  var radio = element.querySelector('.radio-icon');
+  radio.style.borderColor = '#1098f3';
+  var dot = radio.querySelector('div');
+  dot.style.display = 'block';
+
+  selectedFeedbackId = id;
+
+  // 启用提交按钮
+  var submitBtn = document.getElementById('submit-feedback-btn');
+  submitBtn.disabled = false;
+  submitBtn.style.background = '#1098f3';
+  submitBtn.style.color = '#fff';
+  submitBtn.style.cursor = 'pointer';
+}
+
+function submitFeedback() {
+  if (!selectedFeedbackId) {
+    return;
+  }
+
+  var feedbackTexts = {
+    1: '年级 / 教材版本不匹配',
+    2: '不是孩子现在要重点学的科目',
+    3: '内容太难，跟不上节奏',
+    4: '内容太简单，没有提升价值',
+    5: '孩子已有自己的学习计划或安排',
+    6: '缺少孩子需要的功能（如错题整理）',
+    7: '内容趣味性不够，没学习动力',
+    8: '学习时间都排满了，没空余时间',
+    9: '之前孩子有用过，但效果不是很好',
+    10: '其他'
+  };
+
+  console.log('用户反馈：', feedbackTexts[selectedFeedbackId]);
+
+  // 关闭浮层
+  hideFeedbackSheet();
+
+  // 显示提交成功提示
+  alert('感谢您的反馈！我们会为您提供更精准的学习建议。');
 }
 
 </script>
