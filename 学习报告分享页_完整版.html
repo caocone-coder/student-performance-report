@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>孩子昵称的学习报告</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'PingFang SC', -apple-system, sans-serif;
+            background: linear-gradient(180deg, #FFE5C8 0%, #FFF8F0 100%);
+            width: 375px;
+            margin: 0 auto;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .status-bar {
+            height: 44px;
+            padding: 0 21px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .time { font-size: 15px; font-weight: 600; }
+        .status-icons { font-size: 12px; }
+
+        .nav-bar {
+            height: 44px;
+            display: flex;
+            align-items: center;
+            padding: 0 17px;
+            position: relative;
+        }
+
+        .back-btn { font-size: 24px; cursor: pointer; }
+
+        .nav-title {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 16px;
+            color: #1F2229;
+        }
+
+        .main { padding: 0 20px 34px; }
+
+        .card {
+            background: #FFF;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+
+        .user-header {
+            display: flex;
+            margin-bottom: 16px;
+        }
+
+        .avatar {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #FFB6C1, #FFA07A);
+            margin-right: 12px;
+        }
+
+        .username { font-size: 14px; color: #1F2229; }
+
+        .date-info { text-align: right; font-size: 12px; color: rgba(56,55,55,0.79); }
+
+        .artwork-frame {
+            background: linear-gradient(180deg, #FFF8F0, #FFE5D8);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 12px;
+            position: relative;
+        }
+
+        .artwork-img {
+            width: 100%;
+            height: 280px;
+            background: #FFF;
+            border-radius: 4px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            justify-center;
+            color: #999;
+        }
+
+        .artwork-title {
+            font-size: 20px;
+            line-height: 27px;
+            color: #131313;
+            margin-bottom: 8px;
+        }
+
+        .change-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255,255,255,0.95);
+            border: none;
+            border-radius: 12px;
+            padding: 4px 12px;
+            font-size: 8px;
+            color: #43BBFF;
+        }
+
+        .desc { font-size: 12px; line-height: 18px; color: rgba(0,0,0,0.66); }
+
+        .thumbnails { display: flex; gap: 8px; margin-bottom: 20px; }
+
+        .thumb {
+            width: 57px;
+            height: 58px;
+            background: #D9D9D9;
+            border-radius: 5px;
+            position: relative;
+        }
+
+        .thumb.active::after {
+            content: '✓';
+            position: absolute;
+            bottom: 4px;
+            left: 4px;
+            width: 16px;
+            height: 16px;
+            background: #38AFFF;
+            border-radius: 50%;
+            color: #FFF;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+        }
+
+        .bottom-btns { display: flex; gap: 12px; }
+
+        .btn-share { flex: 1; height: 48px; background: transparent; border: none; font-size: 16px; }
+
+        .btn-save {
+            height: 48px;
+            padding: 0 32px;
+            background: linear-gradient(90deg, #38AFFF, #43BBFF);
+            border-radius: 24px;
+            border: none;
+            font-size: 16px;
+            color: #FFF;
+            box-shadow: 0 4px 12px rgba(56,175,255,0.3);
+        }
+
+        .section-title {
+            font-size: 16px;
+            color: #1F2229;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+        }
+
+        .icon { width: 22px; height: 22px; margin-right: 8px; background: #FFE5C8; border-radius: 50%; }
+
+        .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+        .stat-item {
+            background: #F8F8FA;
+            border-radius: 8px;
+            padding: 12px;
+        }
+
+        .stat-label { font-size: 12px; color: #656A73; margin-bottom: 4px; }
+
+        .stat-value { font-size: 20px; font-weight: 500; color: #1F2229; }
+
+        .stat-unit { font-size: 10px; color: #1F2229; }
+    </style>
+</head>
+<body>
+    <!-- 状态栏 -->
+    <div class="status-bar">
+        <div class="time">9:41</div>
+        <div class="status-icons">📶 📡 🔋</div>
+    </div>
+
+    <!-- 导航栏 -->
+    <div class="nav-bar">
+        <div class="back-btn">←</div>
+        <div class="nav-title">孩子昵称的学习报告</div>
+    </div>
+
+    <!-- 主内容 -->
+    <div class="main">
+        <!-- 创意画板卡片 -->
+        <div class="card">
+            <div class="user-header">
+                <div class="avatar"></div>
+                <div style="flex:1">
+                    <div class="username">小丸子</div>
+                </div>
+                <div class="date-info">
+                    <div>2月7日</div>
+                    <div>作品来自：创意画板</div>
+                </div>
+            </div>
+
+            <div class="artwork-frame">
+                <button class="change-btn">换一张</button>
+                <div class="artwork-img">🎨 儿童画作</div>
+                <div class="artwork-title">世界那么大<br>要用画笔画一画</div>
+            </div>
+
+            <div class="desc">
+                用画笔感受世界，周六 15：43完成的绘画"我很开心"，定格此刻的美好～
+            </div>
+        </div>
+
+        <!-- 缩略图 -->
+        <div class="thumbnails">
+            <div class="thumb active"></div>
+            <div class="thumb"></div>
+            <div class="thumb"></div>
+            <div class="thumb"></div>
+            <div class="thumb"></div>
+        </div>
+
+        <!-- 底部按钮 -->
+        <div class="bottom-btns">
+            <button class="btn-share">分享完整报告</button>
+            <button class="btn-save">保存图片并分享</button>
+        </div>
+
+        <!-- 护眼守护 -->
+        <div class="card" style="margin-top:15px">
+            <div class="section-title">
+                <div class="icon"></div>
+                护眼守护
+            </div>
+            <div class="stat-grid">
+                <div class="stat-item">
+                    <div class="stat-label">用眼情况 <span style="background:#0CCC8C;color:#FFF;padding:2px 8px;border-radius:4px;font-size:12px">健康</span></div>
+                    <div class="stat-value">6<span class="stat-unit">时</span>49<span class="stat-unit">分</span></div>
+                    <div style="font-size:12px;color:#656A73;margin-top:4px">平均每日守护时长</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-label">坐姿检查 <span style="background:#FA772A;color:#FFF;padding:2px 8px;border-radius:4px;font-size:12px">不佳</span></div>
+                    <div class="stat-value">37<span class="stat-unit">次</span></div>
+                    <div style="font-size:12px;color:#656A73;margin-top:4px">守护次数</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 运动情况 -->
+        <div class="card">
+            <div class="section-title">
+                <div class="icon"></div>
+                运动情况
+            </div>
+            <div class="stat-grid">
+                <div class="stat-item">
+                    <div class="stat-label">周跳总数</div>
+                    <div class="stat-value">3829<span class="stat-unit">个</span></div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-label">能量总耗</div>
+                    <div class="stat-value">674<span class="stat-unit">千卡</span></div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-label">单日最多</div>
+                    <div class="stat-value">839<span class="stat-unit">个</span></div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-label">单次最多</div>
+                    <div class="stat-value">284<span class="stat-unit">个</span></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 自习情况 -->
+        <div class="card">
+            <div class="section-title">
+                <div class="icon"></div>
+                自习情况
+            </div>
+            <div class="stat-grid">
+                <div class="stat-item">
+                    <div class="stat-label">自习时长</div>
+                    <div class="stat-value">2<span class="stat-unit">时</span>49<span class="stat-unit">分</span></div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-label">自习次数</div>
+                    <div class="stat-value">16<span class="stat-unit">次</span></div>
+                </div>
+            </div>
+        </div>
